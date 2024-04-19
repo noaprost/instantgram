@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import AuthContext from "@/context/AuthContext";
+import SWRConfigContext from "@/context/SWRConfigContext";
 
-const roboto = Roboto({ subsets: ["latin"], weight: "400" });
+const roboto = Open_Sans({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Instagram",
@@ -17,10 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
-        <Header />
-        <section>{children}</section>
-      </body>
+      <AuthContext>
+        <body>
+          <Header />
+          <main className="w-full flex justify-center bg-neutral-50 min-h-full">
+            <SWRConfigContext>{children}</SWRConfigContext>
+          </main>
+        </body>
+      </AuthContext>
     </html>
   );
 }

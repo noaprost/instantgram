@@ -10,8 +10,14 @@ import {
   SearchIcon,
 } from "./ui/icons/index";
 import ColorButton from "./ui/ColorButton";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Profile from "./Profile";
 
 export default function Header() {
+  const path = usePathname();
+  const { status, data: session } = useSession();
+  const user = session?.user;
+
   const MENU = [
     {
       href: "/",
@@ -29,9 +35,9 @@ export default function Header() {
       fillIcon: <NewFillIcon />,
     },
   ];
-  const path = usePathname();
+
   return (
-    <header className="flex justify-between px-4 py-4 sticky top-0 bg-white z-10 border-b">
+    <header className="flex justify-between mx-4 py-4 sticky top-0 bg-white z-10 border-b mb-4">
       <Link href="/" className="text-3xl font-bold">
         Instantgram
       </Link>
@@ -42,7 +48,22 @@ export default function Header() {
               <Link href={href}>{href === path ? fillIcon : icon}</Link>
             </li>
           ))}
-          <ColorButton text="Sign in" onClick={() => {}} />
+          {user && (
+            <li>
+              <Link href={`/user/${user.username}`}>
+                <Profile image={user.image} ring />
+              </Link>
+            </li>
+          )}
+          <li>
+            {status === "loading" ? (
+              <ColorButton text="Loading..." onClick={() => {}} />
+            ) : status === "unauthenticated" ? (
+              <ColorButton text="Sign in" onClick={() => signIn()} />
+            ) : (
+              <ColorButton text="Sign out" onClick={() => signOut()} />
+            )}
+          </li>
         </ul>
       </nav>
     </header>
