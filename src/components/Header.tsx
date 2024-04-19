@@ -37,7 +37,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="flex justify-between mx-4 py-4 sticky top-0 bg-white z-10 border-b mb-4">
+    <header className="flex justify-between mx-16 py-4 sticky top-0 bg-white z-10 border-b mb-4">
       <Link href="/" className="text-3xl font-bold">
         Instantgram
       </Link>

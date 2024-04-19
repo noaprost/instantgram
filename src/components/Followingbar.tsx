@@ -18,7 +18,7 @@ export default function Followingbar() {
   ];
 
   return (
-    <section className="flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] min-w-96 max-w-[600px] overflow-x-auto">
+    <section className="flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] min-w-96 max-w-[550px] overflow-x-auto">
       {loading ? (
         <PropagateLoader size={12} color="orange" />
       ) : (
@@ -38,9 +38,7 @@ export default function Followingbar() {
               className="flex flex-col items-center w-20"
             >
               <Profile image={image} ring size="big" />
-              <p className="w-full text-sm text-ellipsis overflow-hidden text-center">
-                {name}
-              </p>
+              <p className="w-full text-sm truncate text-center">{name}</p>
             </Link>
           ))}
         </ScrollableBar>
