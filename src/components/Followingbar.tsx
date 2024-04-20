@@ -1,5 +1,4 @@
 "use client";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import useSWR from "swr";
 import Profile from "./Profile";
@@ -18,7 +17,7 @@ export default function Followingbar() {
   ];
 
   return (
-    <section className="flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] min-w-96 max-w-[550px] overflow-x-auto">
+    <section className="flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] w-[550px] overflow-x-auto">
       {loading ? (
         <PropagateLoader size={12} color="orange" />
       ) : (

@@ -9,7 +9,7 @@ type Props = {
 
 export default function Signin({ providers, callbackUrl }: Props) {
   return (
-    <>
+    <div className="mb-auto mt-8">
       {Object.values(providers).map(({ name, id }) => (
         <ColorButton
           key={name}
@@ -18,6 +18,6 @@ export default function Signin({ providers, callbackUrl }: Props) {
           size="big"
         />
       ))}
-    </>
+    </div>
   );
 }

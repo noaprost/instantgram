@@ -3,6 +3,7 @@
 import { SimplePost } from "@/model/post";
 import useSWR from "swr";
 import PostCard from "./PostCard";
+import GridSpinner from "./GridSpinner";
 
 export default function PostList() {
   const {
@@ -13,7 +14,12 @@ export default function PostList() {
 
   return (
     <section className="flex flex-col">
-      {posts && posts.map((post) => <PostCard key={post.id} post={post} />)}
+      {loading && (
+        <div className="text-center mt-32">
+          <GridSpinner color="orange" />
+        </div>
+      )}
+      {posts && posts.map((post, index) => <PostCard key={post.id} post={post} priority={index < 2} />)}
     </section>
   );
 }

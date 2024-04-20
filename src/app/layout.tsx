@@ -25,6 +25,7 @@ export default function RootLayout({
           <main className="w-full flex justify-center bg-neutral-50 min-h-full">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
+          <div id="portal" />
         </body>
       </AuthContext>
     </html>
