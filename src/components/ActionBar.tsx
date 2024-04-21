@@ -4,8 +4,16 @@ import { FaHeart } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { format } from "timeago.js";
+import Comment from "./Comment";
 
-export default function ActionBar({ post }: { post: SimplePost }) {
+type Props = {
+  likes?: string[];
+  username?: string;
+  text?: string;
+  createdAt: string;
+};
+
+export default function ActionBar({ likes, username, text, createdAt }: Props) {
   return (
     <div>
       <div className="flex justify-between p-4">
@@ -13,14 +21,11 @@ export default function ActionBar({ post }: { post: SimplePost }) {
         <FaRegBookmark />
       </div>
       <p className="text-xs px-4 py-1 font-semibold">
-        {post.likes ? `${post.likes.length} likes` : `0 like`}
+        {likes ? `${likes.length} likes` : `0 like`}
       </p>
-      <div className="px-4 py-1 flex gap-2 items-center">
-        <p className="font-semibold text-sm">{post.username}</p>
-        <p className="text-sm">{post.text}</p>
-      </div>
+      {username && text && <Comment username={username} text={text} />}
       <p className="text-xs text-neutral-400 px-4 py-2">
-        {format(post.createdAt, "en_US").toUpperCase()}
+        {format(createdAt, "en_US").toUpperCase()}
       </p>
     </div>
   );

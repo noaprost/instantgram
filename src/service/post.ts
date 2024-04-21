@@ -34,10 +34,10 @@ export async function getPost(id: string) {
     "userImage" : author->image,
     "image" : photo,
     "likes" : likes[]->username,
-    comment[]{comment, "username": author->username, "image":author->image},
+    comment[]{comment, "username": author->username, "image": author->image},
     "id" : _id,
-    "createdAt" : _createdAt
+    "createdAt" : _createdAt,
   }`
     )
-    .then((post) => ({ ...post, image: urlFor(post.image) }));
+    .then((post: FullPost) => ({ ...post, image: urlFor(post.image) }));
 }

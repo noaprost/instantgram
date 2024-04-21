@@ -9,6 +9,7 @@ import ModalPortal from "./ModalPortal";
 import Image from "next/image";
 import PostModal from "./PostModal";
 import PostDetail from "./PostDetail";
+import PostProfile from "./PostProfile";
 
 type Props = {
   post: SimplePost;
@@ -22,26 +23,28 @@ export default function PostCard({ post, priority = false }: Props) {
     setOpenModal(true);
   };
   return (
-    <div className="shadow-md rounded-lg w-[550px] mb-6">
-      <div className="flex gap-2 p-3">
-        <Profile image={post.userImage} ring />
-        <p>{post.username}</p>
-      </div>
+    <div className="shadow-md rounded-lg w-[400px] mb-6">
+      <PostProfile userImage={post.userImage} username={post.username} />
       <Image
         src={post.image}
         alt={`photo by ${post.username}`}
         className="object-cover aspect-square"
-        width={500}
-        height={500}
+        width={400}
+        height={400}
         priority={priority}
         onClick={handleClick}
       />
-      <ActionBar post={post} />
+      <ActionBar
+        likes={post.likes}
+        username={post.username}
+        text={post.text}
+        createdAt={post.createdAt}
+      />
       <CommentForm />
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
-            <PostDetail post={post}/>
+            <PostDetail post={post} />
           </PostModal>
         </ModalPortal>
       )}
