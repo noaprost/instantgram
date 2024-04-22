@@ -4,12 +4,12 @@ import useSWR from "swr";
 import PostProfile from "./PostProfile";
 import CommentForm from "./CommentForm";
 import ActionBar from "./ActionBar";
-import Comment from "./Comment";
 
 export default function PostDetail({ post }: { post: SimplePost }) {
-  const { id, userImage, username, image, createdAt, likes, text } = post;
+  const { id, userImage, username, image, createdAt, likes } = post;
   const { data } = useSWR<FullPost>(`/api/post/${id}`);
   const comments = data?.comments;
+  console.log(comments);
   return (
     <div className="flex justify-center items-center">
       <Image
@@ -22,10 +22,16 @@ export default function PostDetail({ post }: { post: SimplePost }) {
       <div className="w-1/2 h-full bg-white flex flex-col">
         <PostProfile userImage={userImage} username={username} />
         <div className="border-t border-b h-64">
-          <div className="flex items-center">
-            <PostProfile userImage={userImage} username={username} />
-            <p>{text}</p>
-          </div>
+          {comments &&
+            comments.map((comment, index) => (
+              <div className="flex items-center" key={index}>
+                <PostProfile
+                  userImage={comment.image}
+                  username={comment.username}
+                />
+                <p className="text-sm">{comment.comment}</p>
+              </div>
+            ))}
         </div>
         <ActionBar likes={likes} createdAt={createdAt} />
         <CommentForm />

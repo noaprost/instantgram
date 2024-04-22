@@ -34,7 +34,7 @@ export async function getPost(id: string) {
     "userImage" : author->image,
     "image" : photo,
     "likes" : likes[]->username,
-    comment[]{comment, "username": author->username, "image": author->image},
+    comments[]{comment, "username": author->username, "image": author->image},
     "id" : _id,
     "createdAt" : _createdAt,
   }`

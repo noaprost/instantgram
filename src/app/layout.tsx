@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <AuthContext>
-        <body>
+        <body className="bg-neutral-50 w-full overflow-auto">
           <Header />
-          <main className="w-full flex justify-center bg-neutral-50 min-h-full">
+          <main className="w-full flex justify-center min-h-full">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
           <div id="portal" />
