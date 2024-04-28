@@ -12,7 +12,7 @@ export default function UserSearch() {
   const { data, isLoading, error } = useSWR<SearchUser[]>(
     `api/search?keyword=${debouncedSearch}`
   );
-  console.log(data);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setKeword(e.target.value);
@@ -20,6 +20,7 @@ export default function UserSearch() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+  
   return (
     <section className="w-full max-w-2xl flex flex-col items-center">
       <form onSubmit={handleSubmit} className="w-full flex justify-center">

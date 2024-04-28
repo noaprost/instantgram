@@ -2,13 +2,13 @@
 import "react-multi-carousel/lib/styles.css";
 import useSWR from "swr";
 import Profile from "./Profile";
-import { DetailUser } from "@/model/user";
+import { HomeUser } from "@/model/user";
 import { PropagateLoader } from "react-spinners";
 import Link from "next/link";
 import ScrollableBar from "./ScrollableBar";
 
 export default function Followingbar() {
-  const { data, isLoading: loading, error } = useSWR<DetailUser>("/api/me");
+  const { data, isLoading: loading, error } = useSWR<HomeUser>("/api/me");
   // const users = data?.following;
   const users = data?.following && [
     ...data?.following,
@@ -30,14 +30,14 @@ export default function Followingbar() {
       )}
       {users && (
         <ScrollableBar>
-          {users.map(({ name, image }) => (
+          {users.map(({ username, image }) => (
             <Link
-              key={name}
-              href={`/user/${name}`}
+              key={username}
+              href={`/user/${username}`}
               className="flex flex-col items-center w-20"
             >
               <Profile image={image} ring size="big" />
-              <p className="w-full text-sm truncate text-center">{name}</p>
+              <p className="w-full text-sm truncate text-center">{username}</p>
             </Link>
           ))}
         </ScrollableBar>

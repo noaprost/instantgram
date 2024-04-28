@@ -1,7 +1,6 @@
 "use client";
 
 import { SimplePost } from "@/model/post";
-import Profile from "./Profile";
 import CommentForm from "./CommentForm";
 import ActionBar from "./ActionBar";
 import { useState } from "react";

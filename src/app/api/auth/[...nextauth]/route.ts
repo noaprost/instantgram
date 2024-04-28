@@ -1,5 +1,4 @@
 import { addUser } from "@/service/user";
-import { log } from "console";
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
