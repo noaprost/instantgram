@@ -20,9 +20,7 @@ export async function getFollowingPostOf(username: string) {
     || author._ref in *[_type=="user" && username == "${username}"].following[]._ref]
     | order(_createdAt desc){${simplePostProjection}}`
     )
-    .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
-    );
+    .then(mapPosts);
 }
 
 export async function getPost(id: string) {
@@ -40,4 +38,45 @@ export async function getPost(id: string) {
   }`
     )
     .then((post: FullPost) => ({ ...post, image: urlFor(post.image) }));
+}
+
+export async function getPostsOf(username: string) {
+  return client
+    .fetch(
+      `
+    *[_type == "post" && author->username == "${username}"] | order(_createdAt desc){
+      ${simplePostProjection}
+    }
+  `
+    )
+    .then(mapPosts);
+}
+
+export async function getLikedPostsOf(username: string) {
+  // username이 좋아하는 포스트를 가져옴
+  return client
+    .fetch(
+      `
+    *[_type == "post" && "${username}" in lieks[]->username] | order(_createdAt desc){
+      ${simplePostProjection}
+    }
+  `
+    )
+    .then(mapPosts);
+}
+
+export async function getSavedPostsOf(username: string) {
+  return client
+    .fetch(
+      `
+  *[_type == "post" && _id in *[_type == "user" && username == "${username}" ].bookmarks[]._ref ] | order(_createdAt desc){
+    ${simplePostProjection}
+  }
+`
+    )
+    .then(mapPosts);
+}
+
+function mapPosts(posts: SimplePost[]) {
+  return posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }));
 }

@@ -22,7 +22,7 @@ export default function RootLayout({
       <AuthContext>
         <body className="bg-neutral-50 w-full overflow-auto">
           <Header />
-          <main className="w-full flex justify-center min-h-full">
+          <main className="w-full flex justify-center min-h-full max-w-screen-xl mx-auto">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
           <div id="portal" />

@@ -18,9 +18,9 @@ export default async function UserPage({ params: { username } }: Props) {
     notFound();
   }
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex flex-col w-full">
       <UserProfile user={user} />
-      <UserPosts />
+      <UserPosts user={user} />
     </div>
   );
 }

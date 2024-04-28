@@ -11,7 +11,7 @@ export default function PostDetail({ post }: { post: SimplePost }) {
   const comments = data?.comments;
   console.log(comments);
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center bg-white">
       <Image
         src={image}
         alt={`photo by ${post.username}`}
