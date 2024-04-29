@@ -1,15 +1,10 @@
 "use client";
-import { SimplePost } from "@/model/post";
-import useSWR from "swr";
 import PostCard from "./PostCard";
 import GridSpinner from "./GridSpinner";
+import UsePosts from "@/hooks/usePosts";
 
 export default function PostsList() {
-  const {
-    data: posts,
-    isLoading: loading,
-    error,
-  } = useSWR<SimplePost[]>("/api/post");
+  const { posts, isLoading: loading, error } = UsePosts();
 
   return (
     <section className="flex flex-col">

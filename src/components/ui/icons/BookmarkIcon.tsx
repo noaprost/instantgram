@@ -5,5 +5,5 @@ type Props = {
 };
 
 export default function BookmarkIcon({ classname }: Props) {
-  return <FaRegBookmark className={classname || "w-7 h-7"} />;
+  return <FaRegBookmark className={classname || "w-5 h-5"} />;
 }

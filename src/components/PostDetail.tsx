@@ -33,7 +33,7 @@ export default function PostDetail({ post }: { post: SimplePost }) {
               </div>
             ))}
         </div>
-        <ActionBar likes={likes} createdAt={createdAt} />
+        <ActionBar post={post} />
         <CommentForm />
       </div>
     </div>

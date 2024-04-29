@@ -1,24 +1,47 @@
-import { SimplePost } from "@/model/post";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
-import { FaRegBookmark } from "react-icons/fa6";
-import { FaBookmark } from "react-icons/fa6";
 import { format } from "timeago.js";
+import { useState } from "react";
 import Comment from "./Comment";
+import ToggleButton from "./ui/ToggleButton";
+import HeartFillIcon from "./ui/icons/HeartFillIcon";
+import HeartIcon from "./ui/icons/HeartIcon";
+import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
+import BookmarkIcon from "./ui/icons/BookmarkIcon";
+import { SimplePost } from "@/model/post";
+import { useSession } from "next-auth/react";
+import UsePosts from "@/hooks/usePosts";
 
 type Props = {
-  likes?: string[];
-  username?: string;
-  text?: string;
-  createdAt: string;
+  post: SimplePost;
 };
 
-export default function ActionBar({ likes, username, text, createdAt }: Props) {
+export default function ActionBar({ post }: Props) {
+  const { likes, username, text, createdAt } = post;
+  const { data: session } = useSession();
+  const user = session?.user;
+  const liked = user ? likes.includes(user.username) : false;
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const { setLike } = UsePosts();
+  const handleLike = (like: boolean) => {
+    if (user) {
+      setLike(post, user.username, like);
+    }
+  };
+
   return (
-    <div>
+    <div> 
       <div className="flex justify-between p-4">
-        <FaRegHeart />
-        <FaRegBookmark />
+        <ToggleButton
+          toggled={liked}
+          onToggle={handleLike}
+          onIcon={<HeartFillIcon />}
+          offIcon={<HeartIcon />}
+        />
+        <ToggleButton
+          toggled={bookmarked}
+          onToggle={setBookmarked}
+          onIcon={<BookmarkFillIcon />}
+          offIcon={<BookmarkIcon />}
+        />
       </div>
       <p className="text-xs px-4 py-1 font-semibold">
         {likes ? `${likes.length} likes` : `0 like`}

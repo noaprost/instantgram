@@ -21,7 +21,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{type: 'user'}],
+          to: [{type: 'user'}], // user의 참조값(id)을 가지고 있음
         },
       ],
       validation: (Rule) => Rule.unique(),
