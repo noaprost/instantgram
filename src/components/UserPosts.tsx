@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import useSWR from "swr";
 import { ProfileUser } from "@/model/user";
 import PostIcon from "./ui/icons/PostIcon";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";

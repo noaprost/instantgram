@@ -1,5 +1,5 @@
 import { SearchUser } from "@/model/user";
-import { client, urlFor } from "./sanity";
+import { client } from "./sanity";
 
 type OAuthUser = {
   id: string;

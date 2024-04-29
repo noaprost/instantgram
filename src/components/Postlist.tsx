@@ -1,5 +1,4 @@
 "use client";
-
 import { SimplePost } from "@/model/post";
 import useSWR from "swr";
 import PostCard from "./PostCard";
@@ -19,7 +18,10 @@ export default function PostList() {
           <GridSpinner color="orange" />
         </div>
       )}
-      {posts && posts.map((post, index) => <PostCard key={post.id} post={post} priority={index < 2} />)}
+      {posts &&
+        posts.map((post, index) => (
+          <PostCard key={post.id} post={post} priority={index < 2} />
+        ))}
     </section>
   );
 }

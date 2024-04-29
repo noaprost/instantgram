@@ -1,9 +1,15 @@
 import { getProviders } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/utils/authOptions";
 import Signin from "@/components/Signin";
+import { Metadata } from "next";
 
-type Props = {
+export const metadata: Metadata = {
+  title: "Singin",
+  description: "Signup or Login to Instantgram",
+};
+
+type Props = { 
   searchParams: {
     callbackUrl: string;
   };

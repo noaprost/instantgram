@@ -8,8 +8,11 @@ import SWRConfigContext from "@/context/SWRConfigContext";
 const roboto = Open_Sans({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Instagram",
-  description: "Instagram",
+  title: {
+    default: "instantgram",
+    template: "Insrantgram | %s",
+  },
+  description: "Instagram Photos",
 };
 
 export default function RootLayout({
