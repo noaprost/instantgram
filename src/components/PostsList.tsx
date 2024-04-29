@@ -4,7 +4,7 @@ import useSWR from "swr";
 import PostCard from "./PostCard";
 import GridSpinner from "./GridSpinner";
 
-export default function PostList() {
+export default function PostsList() {
   const {
     data: posts,
     isLoading: loading,
