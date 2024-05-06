@@ -19,16 +19,19 @@ export default function ActionBar({ post }: Props) {
   const { data: session } = useSession();
   const user = session?.user;
   const liked = user ? likes.includes(user.username) : false;
-  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const bookmarked = user ? user.bookmarks.includes(post.id) : false;
   const { setLike } = UsePosts();
   const handleLike = (like: boolean) => {
     if (user) {
       setLike(post, user.username, like);
     }
   };
+  const handleBookmark = (bookmark: boolean) => {
+
+  };
 
   return (
-    <div> 
+    <div>
       <div className="flex justify-between p-4">
         <ToggleButton
           toggled={liked}
@@ -38,7 +41,7 @@ export default function ActionBar({ post }: Props) {
         />
         <ToggleButton
           toggled={bookmarked}
-          onToggle={setBookmarked}
+          onToggle={handleBookmark}
           onIcon={<BookmarkFillIcon />}
           offIcon={<BookmarkIcon />}
         />

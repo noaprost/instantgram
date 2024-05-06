@@ -53,7 +53,6 @@ export async function getPostsOf(username: string) {
 }
 
 export async function getLikedPostsOf(username: string) {
-  // username이 좋아하는 포스트를 가져옴
   return client
     .fetch(
       `
@@ -102,5 +101,25 @@ export async function disLikePost(postId: string, userId: string) {
   return client
     .patch(postId)
     .unset([`likes[_ref == "${userId}"]`])
+    .commit();
+}
+
+export async function bookmarkPost(userId: string, postId: string) {
+  return client
+    .patch(userId)
+    .setIfMissing({ bookmarks: [] })
+    .append("bookmarks", [
+      {
+        _ref: postId,
+        _type: "refernce",
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function disBookmarkPost(userId: string, postId: string) {
+  return client
+    .patch(userId)
+    .unset([`bookmarks[_ref == "${postId}"]`])
     .commit();
 }

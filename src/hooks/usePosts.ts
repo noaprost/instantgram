@@ -1,4 +1,5 @@
 import { SimplePost } from "@/model/post";
+import { AuthUser } from "@/model/user";
 import useSWR from "swr";
 
 async function updateLike(id: string, like: boolean) {
@@ -33,5 +34,6 @@ export default function UsePosts() {
       rollbackOnError: true,
     });
   };
+
   return { posts, isLoading, error, setLike };
 }

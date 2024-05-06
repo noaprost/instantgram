@@ -31,7 +31,7 @@ export default function UserPosts({ user: { username } }: Props) {
               setQuery(type);
             }}
           >
-            <button className="scale-150 md:scale-100">{icon}</button>
+            <button className="scale-150 md:scale-100 mr-1">{icon}</button>
             <span className="hidden md:inline">{type}</span>
           </li>
         ))}
