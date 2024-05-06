@@ -111,7 +111,7 @@ export async function bookmarkPost(userId: string, postId: string) {
     .append("bookmarks", [
       {
         _ref: postId,
-        _type: "refernce",
+        _type: "reference",
       },
     ])
     .commit({ autoGenerateArrayKeys: true });

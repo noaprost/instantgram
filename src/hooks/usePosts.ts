@@ -1,9 +1,8 @@
 import { SimplePost } from "@/model/post";
-import { AuthUser } from "@/model/user";
 import useSWR from "swr";
 
 async function updateLike(id: string, like: boolean) {
-  return fetch("api/likes", {
+  return fetch("/api/likes", {
     method: "PUT",
     body: JSON.stringify({ id, like }),
   }).then((res) => res.json()); // 글로벌 fetch를 사용하는 것이 아니기 때문에 response 처리를 직접해줘야함

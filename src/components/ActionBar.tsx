@@ -9,6 +9,7 @@ import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import { SimplePost } from "@/model/post";
 import { useSession } from "next-auth/react";
 import UsePosts from "@/hooks/usePosts";
+import UseMe from "@/hooks/useMe";
 
 type Props = {
   post: SimplePost;
@@ -18,16 +19,19 @@ export default function ActionBar({ post }: Props) {
   const { likes, username, text, createdAt } = post;
   const { data: session } = useSession();
   const user = session?.user;
-  const liked = user ? likes.includes(user.username) : false;
-  const bookmarked = user ? user.bookmarks.includes(post.id) : false;
   const { setLike } = UsePosts();
+  const { setBookmark, authuser } = UseMe();
+  const liked = user ? likes.includes(user.username) : false;
+  const bookmarked = authuser ? authuser.bookmarks.includes(post.id) : false;
   const handleLike = (like: boolean) => {
     if (user) {
       setLike(post, user.username, like);
     }
   };
   const handleBookmark = (bookmark: boolean) => {
-
+    if (user) {
+      setBookmark(post.id, bookmark);
+    }
   };
 
   return (
