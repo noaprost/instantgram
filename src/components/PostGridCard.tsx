@@ -13,12 +13,12 @@ type Props = {
 };
 
 export default function PostGridCard({ post, priority = false }: Props) {
-  const { image, username } = post;
+  const { image, username, comments } = post;
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { data: session } = useSession();
-  const handleOpenPost = () => {
-    if(!session?.user){
-        return signIn()
+  const handleOpenPost = () => { 
+    if (!session?.user) {
+      return signIn();
     }
     setOpenModal(true);
   };

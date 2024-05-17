@@ -14,6 +14,7 @@ export async function GET(_: NextRequest, context: Context) {
     return new NextResponse("Bad Request", { status: 400 });
   }
 
+  console.log(slug);
   const [username, query] = slug;
 
   let request = getPostsOf;

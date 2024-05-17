@@ -68,7 +68,7 @@ export async function getSavedPostsOf(username: string) {
   return client
     .fetch(
       `
-  *[_type == "post" && _id in *[_type == "user" && username == "${username}" ].bookmarks[]._ref ] | order(_createdAt desc){
+  *[_type == "post" && _id in *[_type == "user" && username == "${username}"].bookmarks[]._ref ] | order(_createdAt desc){
     ${simplePostProjection}
   }
 `
@@ -104,22 +104,19 @@ export async function disLikePost(postId: string, userId: string) {
     .commit();
 }
 
-export async function bookmarkPost(userId: string, postId: string) {
+export async function addComment(
+  postId: string,
+  userId: string,
+  comment: string
+) {
   return client
-    .patch(userId)
-    .setIfMissing({ bookmarks: [] })
-    .append("bookmarks", [
+    .patch(postId)
+    .setIfMissing({ comments: [] })
+    .append("comments", [
       {
-        _ref: postId,
-        _type: "reference",
+        comment,
+        author: { _ref: userId, _type: "reference" },
       },
     ])
     .commit({ autoGenerateArrayKeys: true });
-}
-
-export async function disBookmarkPost(userId: string, postId: string) {
-  return client
-    .patch(userId)
-    .unset([`bookmarks[_ref == "${postId}"]`])
-    .commit();
 }

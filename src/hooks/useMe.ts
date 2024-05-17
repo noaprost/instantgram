@@ -8,19 +8,14 @@ async function updateBookmark(postId: string, bookmark: boolean) {
   }).then((res) => res.json());
 }
 
-export default function UseMe() {
-  const {
-    data: authuser,
-    isLoading,
-    error,
-    mutate,
-  } = useSWR<HomeUser>("/api/me");
+export default function useMe() {
+  const { data: user, isLoading, error, mutate } = useSWR<HomeUser>("/api/me");
 
   const setBookmark = (postId: string, bookmark: boolean) => {
-    if (!authuser) return;
-    const bookmarks = authuser.bookmarks ?? [];
+    if (!user) return;
+    const bookmarks = user.bookmarks;
     const newUser = {
-      ...authuser,
+      ...user,
       bookmarks: bookmark
         ? [...bookmarks, postId]
         : bookmarks.filter((item) => item !== postId),
@@ -34,5 +29,5 @@ export default function UseMe() {
     });
   };
 
-  return { authuser, isLoading, error, setBookmark };
+  return { user, isLoading, error, setBookmark };
 }

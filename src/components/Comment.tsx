@@ -1,4 +1,3 @@
-import Profile from "./Profile";
 
 type Props = {
   username: string;

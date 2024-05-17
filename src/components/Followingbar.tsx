@@ -1,15 +1,14 @@
 "use client";
 import "react-multi-carousel/lib/styles.css";
-import useSWR from "swr";
 import Profile from "./Profile";
-import { HomeUser } from "@/model/user";
 import { PropagateLoader } from "react-spinners";
 import Link from "next/link";
 import ScrollableBar from "./ScrollableBar";
+import useMe from "@/hooks/useMe";
 
 export default function Followingbar() {
-  const { data, isLoading: loading, error } = useSWR<HomeUser>("/api/me");
-  const users = data?.following;
+  const { user, isLoading: loading, error } = useMe();
+  const users = user?.following;
 
   return (
     <section className="flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] w-[550px] overflow-x-auto relative z-0">

@@ -1,5 +1,4 @@
 import { format } from "timeago.js";
-import { useState } from "react";
 import Comment from "./Comment";
 import ToggleButton from "./ui/ToggleButton";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
@@ -7,31 +6,29 @@ import HeartIcon from "./ui/icons/HeartIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import { SimplePost } from "@/model/post";
-import { useSession } from "next-auth/react";
 import UsePosts from "@/hooks/usePosts";
-import UseMe from "@/hooks/useMe";
+import useMe from "@/hooks/useMe";
+import { ReactNode } from "react";
 
 type Props = {
   post: SimplePost;
+  children?: ReactNode;
 };
 
-export default function ActionBar({ post }: Props) {
-  const { likes, username, text, createdAt } = post;
-  const { data: session } = useSession();
-  const user = session?.user;
+export default function ActionBar({ post, children }: Props) {
+  const { likes, createdAt, id } = post;
+
   const { setLike } = UsePosts();
-  const { setBookmark, authuser } = UseMe();
+  const { setBookmark, user } = useMe();
+
   const liked = user ? likes.includes(user.username) : false;
-  const bookmarked = authuser ? authuser.bookmarks.includes(post.id) : false;
+  const bookmarked = user?.bookmarks.includes(id) ?? false;
+
   const handleLike = (like: boolean) => {
-    if (user) {
-      setLike(post, user.username, like);
-    }
+    user && setLike(post, user.username, like);
   };
   const handleBookmark = (bookmark: boolean) => {
-    if (user) {
-      setBookmark(post.id, bookmark);
-    }
+    user && setBookmark(id, bookmark);
   };
 
   return (
@@ -53,7 +50,7 @@ export default function ActionBar({ post }: Props) {
       <p className="text-xs px-4 py-1 font-semibold">
         {likes ? `${likes.length} likes` : `0 like`}
       </p>
-      {username && text && <Comment username={username} text={text} />}
+      {children}
       <p className="text-xs text-neutral-400 px-4 py-2">
         {format(createdAt, "en_US").toUpperCase()}
       </p>

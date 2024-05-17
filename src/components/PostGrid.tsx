@@ -13,7 +13,6 @@ export default function PostGrid({ username, query }: Props) {
   const {
     data: posts,
     isLoading,
-    error,
   } = useSWR<SimplePost[]>(`/api/users/${username}/${query}`);
   return (
     <div className="w-full text-center">

@@ -10,7 +10,7 @@ const roboto = Open_Sans({ subsets: ["latin"], weight: "400" });
 export const metadata: Metadata = {
   title: {
     default: "instantgram",
-    template: "Insrantgram | %s",
+    template: "Instantgram | %s",
   },
   description: "Instagram Photos",
 };
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <AuthContext>
-        <body className="bg-neutral-50 w-full overflow-auto">
+        <body className="bg-neutral-50 w-full overflow-auto vsc-initialized">
           <Header />
           <main className="w-full flex justify-center min-h-full max-w-screen-xl mx-auto">
             <SWRConfigContext>{children}</SWRConfigContext>

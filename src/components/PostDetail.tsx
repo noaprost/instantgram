@@ -6,7 +6,7 @@ import CommentForm from "./CommentForm";
 import ActionBar from "./ActionBar";
 
 export default function PostDetail({ post }: { post: SimplePost }) {
-  const { id, userImage, username, image, createdAt, likes } = post;
+  const { id, userImage, username, image} = post;
   const { data } = useSWR<FullPost>(`/api/post/${id}`);
   const comments = data?.comments;
   console.log(comments);
