@@ -9,6 +9,7 @@ import PostModal from "./PostModal";
 import PostDetail from "./PostDetail";
 import PostProfile from "./PostProfile";
 import Comment from "./Comment";
+import usePosts from "@/hooks/usePosts";
 
 type Props = {
   post: SimplePost;
@@ -18,10 +19,16 @@ type Props = {
 export default function PostCard({ post, priority = false }: Props) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { userImage, username, image, comments, text } = post;
+  const { postComment } = usePosts();
 
   const handleClick = () => {
     setOpenModal(true);
   };
+
+  const handlePostComment = (comment: string) => {
+    postComment(post, comment);
+  };
+
   return (
     <div className="shadow-md rounded-lg w-[400px] mb-6">
       <PostProfile userImage={userImage} username={username} />
@@ -43,7 +50,7 @@ export default function PostCard({ post, priority = false }: Props) {
           >{`View all ${comments} comments`}</button>
         )}
       </ActionBar>
-      <CommentForm />
+      <CommentForm onPostComment={handlePostComment} />
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>

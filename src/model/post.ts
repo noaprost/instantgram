@@ -1,7 +1,7 @@
 export type Comment = {
   comment: string;
   username: string;
-  image: string;
+  image?: string | undefined;
 };
 
 // 포스트 리스트 카드에 필요한 데이터

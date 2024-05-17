@@ -6,9 +6,9 @@ import HeartIcon from "./ui/icons/HeartIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import { SimplePost } from "@/model/post";
-import UsePosts from "@/hooks/usePosts";
 import useMe from "@/hooks/useMe";
 import { ReactNode } from "react";
+import usePosts from "@/hooks/usePosts";
 
 type Props = {
   post: SimplePost;
@@ -18,7 +18,7 @@ type Props = {
 export default function ActionBar({ post, children }: Props) {
   const { likes, createdAt, id } = post;
 
-  const { setLike } = UsePosts();
+  const { setLike } = usePosts();
   const { setBookmark, user } = useMe();
 
   const liked = user ? likes.includes(user.username) : false;

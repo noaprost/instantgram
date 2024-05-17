@@ -1,10 +1,10 @@
 "use client";
 import PostCard from "./PostCard";
 import GridSpinner from "./GridSpinner";
-import UsePosts from "@/hooks/usePosts";
+import usePosts from "@/hooks/usePosts";
 
 export default function PostsList() {
-  const { posts, isLoading: loading, error } = UsePosts();
+  const { posts, isLoading: loading } = usePosts();
 
   return (
     <section className="flex flex-col">

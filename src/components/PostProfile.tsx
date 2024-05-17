@@ -1,7 +1,7 @@
 import Profile from "./Profile";
 
 type Props = {
-  userImage: string;
+  userImage?: string | undefined;
   username: string;
 };
 

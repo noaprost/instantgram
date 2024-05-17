@@ -1,6 +1,6 @@
 type ProfileSize = "small" | "big" | "xlarge";
 type Props = {
-  image?: string | null;
+  image?: string | undefined;
   ring?: boolean;
   size?: ProfileSize;
 };
