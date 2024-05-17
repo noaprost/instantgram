@@ -1,4 +1,4 @@
-import { SimplePost } from "@/model/post";
+import { Comment, SimplePost } from "@/model/post";
 import useSWR from "swr";
 
 async function updateLike(id: string, like: boolean) {
@@ -41,7 +41,7 @@ export default function usePosts() {
     });
   };
 
-  const postComment = (post: SimplePost, comment: string) => {
+  const postComment = (post: SimplePost, comment: Comment) => {
     const newPost = {
       ...post,
       comments: post.comments + 1,
@@ -49,7 +49,7 @@ export default function usePosts() {
 
     const newPosts = posts?.map((p) => (p.id === newPost.id ? newPost : p));
 
-    return mutate(addComment(post.id, comment), {
+    return mutate(addComment(post.id, comment.comment), {
       optimisticData: newPosts,
       populateCache: false, // 업데이트시 모든 업데이트된 post를 가져올게 아니라서 false
       revalidate: false, // 이미 보내줄 데이터를 잘 만들어두었기 때문에 벡에서 다시 받아올 필요가 없으므로 false
